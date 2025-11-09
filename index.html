@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Institucional INET | Tecnología y Educación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* Variables CSS para consistencia de marca */
+        :root {
+            --color-principal: #004080; /* Azul INET */
+            --color-acento: #FFC107; /* Amarillo de acento para contrastes */
+            --color-texto: #343a40; /* Gris oscuro para legibilidad */
+            --color-fondo: #f8f9fa; /* Fondo suave */
+        }
+
+        /* Tipografía y fondo general */
+        body {
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Encabezado y Navegación */
+        header {
+            background-color: var(--color-principal);
+            color: white;
+            padding: 10px 0;
+            border-bottom: 3px solid var(--color-acento); /* Detalle de acento */
+        }
+
+        .navbar-brand {
+            font-weight: 700 !important;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-brand img {
+            height: 40px; /* Tamaño de logo ajustado */
+            margin-right: 15px;
+            border-radius: 5px; /* Suavizar bordes del logo si es un cuadrado */
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-acento) !important;
+        }
+        
+        /* Contenido Principal y Tarjetas */
+        main {
+            padding-top: 20px;
+            padding-bottom: 50px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden; /* Para contener la imagen */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Elevación sutil */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Botón de Interacción */
+        .btn-toggle {
+            background-color: var(--color-acento);
+            color: var(--color-principal);
+            font-weight: 700;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-toggle:hover {
+            background-color: #e0ac05; /* Tono de acento más oscuro */
+            color: var(--color-principal);
+        }
+        
+        .btn-outline-primary {
+            color: var(--color-principal);
+            border-color: var(--color-principal);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--color-principal);
+            color: white;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: var(--color-principal);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            border-top: 3px solid var(--color-acento);
+        }
+
+        footer a {
+            color: var(--color-acento);
+            text-decoration: none;
+        }
+
+        /* Títulos */
+        h2, h3 {
+            border-left: 5px solid var(--color-acento);
+            padding-left: 10px;
+            margin-bottom: 20px;
+            color: var(--color-principal);
+            font-weight: 700;
+        }
+        
+        .text-primary {
+            color: var(--color-principal) !important;
+        }
+
+        /* Alerta de Bienvenida (mejorada) */
+        .alert-info-custom {
+            background-color: rgba(0, 64, 128, 0.1); /* Tono suave del azul */
+            color: var(--color-principal);
+            border-left: 5px solid var(--color-principal);
+            border-radius: 5px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky-top shadow">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="inet.jpg" alt="INET" class="me-2">
+                <span class="fw-bold"> INET Instituo Normal de Educación Técnica </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home me-1"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://inet.cfe.edu.uy/index.php/11-banner/45-informatica" target="_blank"><i class="fas fa-newspaper me-1"></i> Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://inet.cfe.edu.uy/" target="_blank"><i class="fas fa-link me-1"></i> Sitio INET</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <div class="row mb-5 mt-4">
+            <div class="col-12">
+                <div class="text-center mb-4">
+                    <button id="toggleBtn" class="btn btn-toggle btn-lg shadow-sm"><i class="fas fa-chevron-down me-2"></i> Información del Blog</button>
+                </div>
+
+                <div id="infoSeccion" class="alert-info-custom shadow-sm" style="display: none;">
+                    <h5 class="fw-bold"><i class="fas fa-graduation-cap me-2"></i> Bienvenidos al Instituto Normal de Educación Técnica</h5>
+                    <p class="mb-0">Aquí encontrarás artículos, noticias y recursos educativos esenciales para fortalecer a los docentes de enseñanza técnica y tecnológica en los centros educativos </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8" id="noticias">
+                <h2 class="h3">📰 Publicaciones recientes</h2>
+
+                <div class="card mb-4 shadow-sm">
+                    <img src="12_Olimpiadas.jpg" class="card-img-top" alt="Participación en la 12da Olimpiadas de Robótica">
+                    <div class="card-body">
+                        <span class="badge bg-warning text-dark mb-2">Tecnología</span>
+                        <h5 class="card-title fw-bold">Innovación en la educación técnica</h5>
+                        <p class="card-text">El uso de tecnologías digitales promueve el pensamiento crítico y la resolución de problemas en los estudiantes de las carreras técnicas.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="fas fa-book-open me-1"></i> Leer artículo</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <img src="Olimpiadas_stem.jpg" class="card-img-top" alt="Taller de Robótica Educativa STEM">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">Eventos</span>
+                        <h5 class="card-title fw-bold">Taller de Robótica Educativa</h5>
+                        <p class="card-text">Alumnos del INET participan de un taller avanzado con enfoque STEM, integrando programación, electrónica y diseño 3D.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="fas fa-book-open me-1"></i> Leer artículo</a>
+                    </div>
+                </div>
+
+                <div class="card text-white bg-primary mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold"><i class="fas fa-star me-2"></i> Destacado del mes</h5>
+                        <p class="card-text">Se inauguró el nuevo laboratorio de innovación tecnológica con equipamiento de última generación, elevando la calidad educativa.</p>
+                        <a href="#" class="btn btn-light btn-sm text-primary"><i class="fas fa-eye me-1"></i> Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-lg-4">
+                <h3 class="h4">🔗 Recursos y enlaces útiles</h3>
+                <div class="list-group mb-4 shadow-sm">
+                    <a href="https://www.elobservador.com.uy/nacional/mas-horas-educacion-sexual-el-regreso-astronomia-obligatoria-y-menos-materias-optativas-e-informatica-la-nueva-grilla-que-regira-liceos-y-utu-2026-n6021718" target="_blank" class="list-group-item list-group-item-action"><i class="fas fa-external-link-alt me-2"></i> Noticias Educación Uruguay</a>
+                    <a href="https://www.ceibal.edu.uy" target="_blank" class="list-group-item list-group-item-action"><i class="fas fa-laptop-code me-2"></i> Plan Ceibal</a>
+                    <a href="https://inet.cfe.edu.uy/index.php" target="_blank" class="list-group-item list-group-item-action"><i class="fas fa-globe me-2"></i> Sitio Oficial INET</a>
+                </div>
+
+                <h3 class="h4">✉️ Contáctanos</h3>
+                <div class="p-3 bg-white rounded shadow-sm">
+                    <form class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Su nombre completo" required>
+                            <div class="invalid-feedback">Por favor, ingrese su nombre.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="correo" placeholder="ejemplo@correo.com" required>
+                            <div class="invalid-feedback">Ingrese un correo válido.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="3" placeholder="Escriba su consulta..." required></textarea>
+                            <div class="invalid-feedback">Por favor, escriba un mensaje.</div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" type="submit">Enviar Consulta</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="mb-1"><i class="fas fa-copyright me-1"></i> 2025 Instituto Normal de Educación Técnica (INET)</p>
+            <p class="mb-0">Blog institucional | Diseñado para la comunidad educativa.</p>
+            <p class="mb-0">By Design Mariela Pereira | Daniel Ayres</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Mostrar/Ocultar información con animación simple
+            const toggleBtn = document.getElementById('toggleBtn');
+            const infoSeccion = document.getElementById('infoSeccion');
+            
+            toggleBtn.addEventListener('click', () => {
+                // Alternar la visibilidad usando las clases de Bootstrap para animación (opcional, se puede usar CSS puro)
+                if (infoSeccion.style.display === 'block') {
+                    infoSeccion.style.display = 'none';
+                    toggleBtn.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                } else {
+                    infoSeccion.style.display = 'block';
+                    toggleBtn.querySelector('i').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                }
+            });
+
+            // 2. Validación de formulario Bootstrap
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            });
+        });
+    </script>
+
+</body>
+</html>
