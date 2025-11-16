@@ -138,6 +138,29 @@
             border-radius: 5px;
             padding: 20px;
         }
+
+        /* Mensaje de éxito */
+        .alert-success-custom {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border-left: 5px solid #28a745;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -146,7 +169,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="inet.jpg" alt="INET" class="me-2">
-                <span class="fw-bold"> INET Instituo Normal de Educación Técnica </span>
+                <span class="fw-bold"> INET Instituto Normal de Educación Técnica </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -219,27 +242,36 @@
                 </div>
 
                 <h3 class="h4">✉️ Contáctanos</h3>
+                
+                <!-- Mensaje de éxito -->
+                <div id="mensajeExito" class="alert-success-custom">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>¡Mensaje enviado!</strong> Se abrirá tu cliente de correo para completar el envío.
+                </div>
+
                 <div class="p-3 bg-white rounded shadow-sm">
-                    <form class="needs-validation" novalidate>
+                    <form id="formContacto" class="needs-validation" novalidate>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Su nombre completo" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Su nombre completo" required>
                             <div class="invalid-feedback">Por favor, ingrese su nombre.</div>
                         </div>
 
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="correo" placeholder="ejemplo@correo.com" required>
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
                             <div class="invalid-feedback">Ingrese un correo válido.</div>
                         </div>
 
                         <div class="mb-3">
                             <label for="mensaje" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="mensaje" rows="3" placeholder="Escriba su consulta..." required></textarea>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Escriba su consulta..." required></textarea>
                             <div class="invalid-feedback">Por favor, escriba un mensaje.</div>
                         </div>
 
-                        <button class="btn btn-primary w-100" type="submit">Enviar Consulta</button>
+                        <button class="btn btn-primary w-100" type="submit">
+                            <i class="fas fa-paper-plane me-2"></i>Enviar Consulta
+                        </button>
                     </form>
                 </div>
             </aside>
@@ -263,7 +295,6 @@
             const infoSeccion = document.getElementById('infoSeccion');
             
             toggleBtn.addEventListener('click', () => {
-                // Alternar la visibilidad usando las clases de Bootstrap para animación (opcional, se puede usar CSS puro)
                 if (infoSeccion.style.display === 'block') {
                     infoSeccion.style.display = 'none';
                     toggleBtn.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
@@ -273,16 +304,72 @@
                 }
             });
 
-            // 2. Validación de formulario Bootstrap
-            const forms = document.querySelectorAll('.needs-validation')
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
+            // 2. Manejo del formulario de contacto con envío de email
+            const form = document.getElementById('formContacto');
+            const mensajeExito = document.getElementById('mensajeExito');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (form.checkValidity()) {
+                    // Obtener los valores del formulario
+                    const nombre = document.getElementById('nombre').value;
+                    const correo = document.getElementById('correo').value;
+                    const mensaje = document.getElementById('mensaje').value;
+
+                    // Configurar el email
+                    const destinatario = 'daniel.ayres@docente.ceibal.edu.uy';
+                    const asunto = encodeURIComponent('Consulta Blog INET - ' + nombre);
+                    const cuerpoEmail = encodeURIComponent(
+                        '═══════════════════════════════\n' +
+                        'CONSULTA DESDE BLOG INET\n' +
+                        '═══════════════════════════════\n\n' +
+                        'DATOS DEL REMITENTE:\n' +
+                        '-----------------------------------\n' +
+                        'Nombre: ' + nombre + '\n' +
+                        'Email: ' + correo + '\n\n' +
+                        'MENSAJE:\n' +
+                        '-----------------------------------\n' +
+                        mensaje + '\n\n' +
+                        '═══════════════════════════════\n' +
+                        'Blog Institucional INET\n' +
+                        'Instituto Normal de Educación Técnica\n' +
+                        '═══════════════════════════════'
+                    );
+
+                    // Crear el enlace mailto
+                    const mailtoLink = `mailto:${destinatario}?subject=${asunto}&body=${cuerpoEmail}`;
+
+                    // Abrir el cliente de correo
+                    window.location.href = mailtoLink;
+
+                    // Mostrar mensaje de éxito
+                    mensajeExito.style.display = 'block';
+
+                    // Limpiar el formulario
+                    form.reset();
+                    form.classList.remove('was-validated');
+
+                    // Ocultar mensaje después de 7 segundos
+                    setTimeout(() => {
+                        mensajeExito.style.display = 'none';
+                    }, 7000);
+
+                } else {
+                    form.classList.add('was-validated');
+                }
+            });
+
+            // 3. Validación de formulario Bootstrap (backup)
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(formItem => {
+                formItem.addEventListener('submit', event => {
+                    if (!formItem.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
                     }
-                    form.classList.add('was-validated')
-                }, false)
+                }, false);
             });
         });
     </script>
